@@ -25,29 +25,122 @@
         <section class="grid grid-cols-3">
             <div class="bg-white col-start-2 h-screen">
                 <div class="grid grid-cols-4 divide-x divide-y divide-neutral-500 h-screen text-6xl">
-                    <input class="col-span-4 text-right bg-slate-200" type="text">
-                    <button class="col-span-2 bg-pink-500 hover:bg-pink-600 text-white">AC</button>
-                    <button class="hover:bg-slate-100">DEL</button>
-                    <button class="hover:bg-slate-100">÷</button>
-                    <button class="hover:bg-slate-100">1</button>
-                    <button class="hover:bg-slate-100">2</button>
-                    <button class="hover:bg-slate-100">3</button>
-                    <button class="hover:bg-slate-100">*</button>
-                    <button class="hover:bg-slate-100">4</button>
-                    <button class="hover:bg-slate-100">5</button>
-                    <button class="hover:bg-slate-100">6</button>
-                    <button class="hover:bg-slate-100">+</button>
-                    <button class="hover:bg-slate-100">7</button>
-                    <button class="hover:bg-slate-100">8</button>
-                    <button class="hover:bg-slate-100">9</button>
-                    <button class="hover:bg-slate-100">-</button>
-                    <button class="hover:bg-slate-100">.</button>
-                    <button class="hover:bg-slate-100">0</button>
-                    <button class="col-span-2 bg-pink-500 hover:bg-pink-600 text-white">=</button>
+                    <input class="col-span-4 text-right bg-slate-200" type="text" id="input-field">
+                    <button class="col-span-2 bg-pink-500 hover:bg-pink-600 text-white" id="number-ac">AC</button>
+                    <button class="hover:bg-slate-100" id="number-backspace">⌫</button>
+                    <button class="hover:bg-slate-100" id="number-÷">÷</button>
+                    <button class="hover:bg-slate-100" id="number-1">1</button>
+                    <button class="hover:bg-slate-100" id="number-2">2</button>
+                    <button class="hover:bg-slate-100" id="number-3">3</button>
+                    <button class="hover:bg-slate-100" id="number-*">*</button>
+                    <button class="hover:bg-slate-100" id="number-4">4</button>
+                    <button class="hover:bg-slate-100" id="number-5">5</button>
+                    <button class="hover:bg-slate-100" id="number-6">6</button>
+                    <button class="hover:bg-slate-100" id="number-+">+</button>
+                    <button class="hover:bg-slate-100" id="number-7">7</button>
+                    <button class="hover:bg-slate-100" id="number-8">8</button>
+                    <button class="hover:bg-slate-100" id="number-9">9</button>
+                    <button class="hover:bg-slate-100" id="number--">-</button>
+                    <button class="hover:bg-slate-100" id="number-.">.</button>
+                    <button class="hover:bg-slate-100" id="number-0">0</button>
+                    <button class="col-span-2 bg-pink-500 hover:bg-pink-600 text-white" id="number-=">=</button>
                 </div>
             </div>
         </section>
     </main>
+    <script>
+        const inputField = document.getElementById('input-field');
+
+        document.getElementById('number-1').addEventListener('click', function () {
+            inputField.value = inputField.value + '1';
+        });
+        document.getElementById('number-2').addEventListener('click', function () {
+            inputField.value = inputField.value + '2';
+        });
+        document.getElementById('number-3').addEventListener('click', function () {
+            inputField.value = inputField.value + '3';
+        });
+        document.getElementById('number-4').addEventListener('click', function () {
+            inputField.value = inputField.value + '4';
+        });
+        document.getElementById('number-5').addEventListener('click', function () {
+            inputField.value = inputField.value + '5';
+        });
+        document.getElementById('number-6').addEventListener('click', function () {
+            inputField.value = inputField.value + '6';
+        });
+        document.getElementById('number-7').addEventListener('click', function () {
+            inputField.value = inputField.value + '7';
+        });
+        document.getElementById('number-8').addEventListener('click', function () {
+            inputField.value = inputField.value + '8';
+        });
+        document.getElementById('number-9').addEventListener('click', function () {
+            inputField.value = inputField.value + '9';
+        });
+        document.getElementById('number-0').addEventListener('click', function () {
+            inputField.value = inputField.value + '0';
+        });
+        document.getElementById('number-.').addEventListener('click', function () {
+            inputField.value = inputField.value + '.';
+        });
+        document.getElementById('number-+').addEventListener('click', function () {
+            inputField.value = inputField.value + '+';
+        });
+        document.getElementById('number--').addEventListener('click', function () {
+            inputField.value = inputField.value + '-';
+        });
+        document.getElementById('number-*').addEventListener('click', function () {
+            inputField.value = inputField.value + '*';
+        });
+        document.getElementById('number-÷').addEventListener('click', function () {
+            inputField.value = inputField.value + '÷';
+        });
+
+        // button ac, backspace and = functions in here
+        document.getElementById('number-ac').addEventListener('click', function () {
+            inputField.value = '';
+        });
+        document.getElementById('number-backspace').addEventListener('click', function () {
+            const poppedValue = inputField.value.slice(0, -1);
+            inputField.value = poppedValue;
+        });
+        document.getElementById('number-=').addEventListener('click', function () {
+            const inputValue = inputField.value;
+            if (inputValue.includes('+')) {
+                const splittedValue = inputValue.split('+');
+                let valueAddTotal = 0;
+                for (let value of splittedValue) {
+                    valueAddTotal = valueAddTotal + parseFloat(value);
+                }
+                inputField.value = valueAddTotal;
+            }
+            else if (inputValue.includes('-')) {
+                const splittedValue = inputValue.split('-');
+                let valueSubTotal = 0;
+                valueSubTotal = splittedValue[0] - splittedValue[1];
+                // console.log(valueSubTotal);
+                inputField.value = valueSubTotal;
+            }
+            else if (inputValue.includes('*')) {
+                const splittedValue = inputValue.split('*');
+                let valueMulTotal = 1;
+                for (let value of splittedValue) {
+                    valueMulTotal = valueMulTotal * parseFloat(value);
+                }
+                inputField.value = valueMulTotal;
+            }
+            else if (inputValue.includes('÷')) {
+                const splittedValue = inputValue.split('÷');
+                let valueDivTotal = 0;
+                valueDivTotal = splittedValue[0] / splittedValue[1];
+                // console.log(valueDivTotal);
+                inputField.value = valueDivTotal;
+            }
+        });
+
+
+    </script>
 </body>
 
 </html>
